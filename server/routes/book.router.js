@@ -44,12 +44,25 @@ router.put('/:id', (req, res) => {
 
   console.log(`Updating book ${id} with `, book);
 
+  let status = book.status; 
+
+
   // TODO - REPLACE BELOW WITH YOUR CODE
-  let queryText = `UPDATE "books"
+  let queryText;
+  if (status === 'Want to Read') {
+    queryText = `UPDATE "books"
                   SET "status" = 'Read'
                   WHERE "id" = $1;`;
+  } else if(book.status === 'Read') {
+    queryText = `UPDATE "books"
+                  SET "status" = 'Want to Read'
+                  WHERE "id" = $1;`;
+  } else {
+    res.sendStatus(400);
+    return; 
+  }
 
-  pool.query(queryText, [id])
+  pool.query(queryText, [book.id])
     .then((result) => {
       res.sendStatus(200);
     }).catch((error) => {

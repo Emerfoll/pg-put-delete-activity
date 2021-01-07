@@ -30,7 +30,7 @@ function deleteBook() {
 
 function markAsRead() {
   console.log('Read');
-  let book = $(this).closest('tr').data('book').id;
+  let book = $(this).closest('tr').data('book');
   // let bookStatus = book.status;
   console.log(book);
 
