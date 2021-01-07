@@ -30,14 +30,18 @@ function deleteBook() {
 
 function markAsRead() {
   console.log('Read');
+  // Makes an object and stores it in book.
   let book = $(this).closest('tr').data('book');
+  // Targets the status of the book object and creates a new object to send to the server.
   let status = { status: book.status}
-  // let bookStatus = book.status;
+  
   console.log(status);
 
   $.ajax({
     type: 'PUT',
+    // puts the id of the book into the URL 
     url: `/books/${book.id}`,
+    // Sends just the status of the book instead of the whole book object.
     data: status
   }).then(function (response) {
     console.log('Updated');
@@ -45,7 +49,7 @@ function markAsRead() {
   }).catch(function (error) {
     alert('error updating status');
   })
-}
+}// End of markAsRead
 
 
 function handleSubmit() {
