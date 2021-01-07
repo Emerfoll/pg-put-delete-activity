@@ -31,13 +31,14 @@ function deleteBook() {
 function markAsRead() {
   console.log('Read');
   let book = $(this).closest('tr').data('book');
+  let status = { status: book.status}
   // let bookStatus = book.status;
-  console.log(book);
+  console.log(status);
 
   $.ajax({
     type: 'PUT',
-    url: `/books/${book}`,
-    data: book
+    url: `/books/${book.id}`,
+    data: status
   }).then(function (response) {
     console.log('Updated');
     refreshBooks();
@@ -45,6 +46,7 @@ function markAsRead() {
     alert('error updating status');
   })
 }
+
 
 function handleSubmit() {
   console.log('Submit button clicked.');
